@@ -98,7 +98,9 @@ struct Home: View {
                     }
                     .padding([.horizontal, .bottom])
                     .onChange(of: currentTab) { newValue in
-                        
+                        withAnimation(.easeInOut) {
+                            proxy.scrollTo(currentTab, anchor: .topTrailing)
+                        }
                     }
                 }
             }
