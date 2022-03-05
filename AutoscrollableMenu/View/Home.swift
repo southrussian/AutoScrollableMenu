@@ -12,6 +12,8 @@ struct Home: View {
     @State var currentTab = ""
     @Namespace var animation
     
+    @Environment(\.colorScheme) var scheme
+    
     var body: some View {
         
         VStack(spacing: 0) {
@@ -77,6 +79,13 @@ struct Home: View {
                     }
                 }
                 .padding(.top)
+                
+                .background(scheme == .dark ? Color.black : Color.white)
+                .overlay(
+                    Divider()
+                        .padding(.horizontal, 15)
+                    ,alignment: .bottom
+                )
             }
             .padding([.top])
             ScrollView(.vertical, showsIndicators: false) {
