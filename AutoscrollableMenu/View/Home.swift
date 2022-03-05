@@ -50,10 +50,10 @@ struct Home: View {
                                 VStack {
                                     Text(tab.tab)
                                         .font(.callout)
-                                        .foregroundColor(currentTab == tab.id ? .black : .gray)
+                                        .foregroundColor(currentTab.replacingOccurrences(of: " SCROLL", with: "") == tab.id ? .black : .gray)
                                     
                                     
-                                    if currentTab == tab.id {
+                                    if currentTab.replacingOccurrences(of: " SCROLL", with: "") == tab.id {
                                         Capsule()
                                             .fill()
                                             .matchedGeometryEffect(id: "TAB", in: animation)
@@ -69,13 +69,21 @@ struct Home: View {
                                 }
                                 .onTapGesture {
                                     withAnimation(.easeInOut) {
-                                        currentTab = tab.id
-                                        proxy.scrollTo(currentTab, anchor: .topTrailing)
+                                        currentTab = "\(tab.id) TAP"
+                                        proxy.scrollTo(currentTab.replacingOccurrences(of: " TAP", with: ""), anchor: .topTrailing)
                                     }
                                 }
                             }
                         }
                         .padding(.horizontal, 30)
+                    }
+                    .onChange(of: currentTab) { _ in
+                        if currentTab.contains(" SCROLL") {
+                            withAnimation(.easeInOut) {
+                                proxy.scrollTo(currentTab.replacingOccurrences(of: " SCROLL", with: ""), anchor: .topTrailing)
+                            }
+                            
+                        }
                     }
                 }
                 .padding(.top)
@@ -92,18 +100,21 @@ struct Home: View {
                 ScrollViewReader{proxy in
                     VStack(spacing: 15){
                         ForEach(tabsItems){tab in
-                            MenuCardView(tab: tab)
+                            MenuCardView(tab: tab, currentTab: $currentTab)
                                 .padding(.top)
                         }
                     }
                     .padding([.horizontal, .bottom])
                     .onChange(of: currentTab) { newValue in
-                        withAnimation(.easeInOut) {
-                            proxy.scrollTo(currentTab, anchor: .topTrailing)
+                        if currentTab.contains(" TAP") {
+                            withAnimation(.easeInOut) {
+                                proxy.scrollTo(currentTab.replacingOccurrences(of: " TAP", with: ""), anchor: .topTrailing)
+                            }
                         }
                     }
                 }
             }
+            .coordinateSpace(name: "SCROLL")
             
         }
         .onAppear {
@@ -120,6 +131,7 @@ struct Home_Previews: PreviewProvider {
 
 struct MenuCardView: View {
     var tab: Tab
+    @Binding var currentTab: String
     var body: some View {
         VStack(alignment: .leading, spacing: 15){
             Text(tab.tab)
@@ -148,6 +160,7 @@ struct MenuCardView: View {
                 Divider()
             }
         }
+        .modifier(OffsetModifier(tab: tab, currentTab: $currentTab))
         .id(tab.id)
     }
 }
