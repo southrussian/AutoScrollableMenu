@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   version = "1.3">
+   <BuildAction>
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForRunning = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "58C7996027D15F3F00FC2E1C"
+               BuildableName = "AutoscrollableMenu.app"
+               BlueprintName = "AutoscrollableMenu"
+               ReferencedContainer = "container:AutoscrollableMenu.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <LaunchAction
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "58C7996027D15F3F00FC2E1C"
+            BuildableName = "AutoscrollableMenu.app"
+            BlueprintName = "AutoscrollableMenu"
+            ReferencedContainer = "container:AutoscrollableMenu.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+</Scheme>

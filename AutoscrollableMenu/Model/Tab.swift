@@ -16,6 +16,5 @@ struct Food: Identifiable {
 }
 
 var foods = [
-    Food(title: "Шоколад", description: "Темный шоколад AlpenGold", price: "100р.", image: "pic1"),
-    Food(title: <#T##String#>, description: <#T##String#>, price: <#T##String#>, image: <#T##String#>)
+    Food(title: "Шоколад", description: <#T##String#>, price: <#T##String#>, image: <#T##String#>)
 ]
