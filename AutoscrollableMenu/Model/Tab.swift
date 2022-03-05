@@ -2,7 +2,7 @@
 //  Tab.swift
 //  AutoscrollableMenu
 //
-//  Created by Danil Peregorodiev on 03.03.2022.
+//  Created by Danil Peregorodiev on 05.03.2022.
 //
 
 import SwiftUI
@@ -16,5 +16,18 @@ struct Food: Identifiable {
 }
 
 var foods = [
-    Food(title: "Шоколад", description: <#T##String#>, price: <#T##String#>, image: <#T##String#>)
+    Food(title: "Choclate", description: "Choclate", price: "10$", image: "pic1")
+]
+
+struct Tab: Identifiable {
+    var id = UUID().uuidString
+    var tab: String
+    var foods: [Food]
+}
+
+var tabItems = [
+    Tab(tab: "Home Style", foods: foods.shuffled()),
+    Tab(tab: "Promotions", foods: foods.shuffled()),
+    Tab(tab: "Snacks", foods: foods.shuffled()),
+    Tab(tab: "McCafe", foods: foods.shuffled())
 ]
