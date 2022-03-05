@@ -10,6 +10,7 @@ import SwiftUI
 struct Home: View {
     
     @State var currentTab = ""
+    @Namespace var animation
     
     var body: some View {
         
@@ -35,6 +36,7 @@ struct Home: View {
                     }
                 }
                 .foregroundColor(.primary)
+                .padding(.horizontal)
                 
                 
                 ScrollViewReader {proxy in
@@ -48,19 +50,39 @@ struct Home: View {
                                         .font(.callout)
                                         .foregroundColor(currentTab == tab.id ? .black : .gray)
                                     
-                                    Capsule()
-                                        .fill()
-                                        .frame(height: 3)
-                                        .padding(.horizontal, -10)
-                                        
+                                    
+                                    if currentTab == tab.id {
+                                        Capsule()
+                                            .fill()
+                                            .matchedGeometryEffect(id: "TAB", in: animation)
+                                            .frame(height: 3)
+                                            .padding(.horizontal, -10)
+                                    }
+                                    else {
+                                        Capsule()
+                                            .fill(.clear)
+                                            .frame(height: 3)
+                                            .padding(.horizontal, -10)
+                                    }
+                                }
+                                .onTapGesture {
+                                    withAnimation(.easeInOut) {
+                                        currentTab = tab.id
+                                        proxy.scrollTo(currentTab, anchor: .topTrailing)
+                                    }
                                 }
                             }
                         }
+                        .padding(.horizontal, 30)
                     }
                 }
                 .padding(.top)
             }
-            .padding([.horizontal, .top])
+            .padding([.top])
+            ScrollView(.vertical, showsIndicators: false) {
+                
+            }
+            
         }
         .onAppear {
             currentTab = tabsItems.first?.id ?? ""
