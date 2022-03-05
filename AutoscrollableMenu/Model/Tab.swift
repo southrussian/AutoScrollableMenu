@@ -25,7 +25,7 @@ struct Tab: Identifiable {
     var foods: [Food]
 }
 
-var tabItems = [
+var tabsItems = [
     Tab(tab: "Home Style", foods: foods.shuffled()),
     Tab(tab: "Promotions", foods: foods.shuffled()),
     Tab(tab: "Snacks", foods: foods.shuffled()),

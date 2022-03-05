@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Home: View {
+    
+    @State var currentTab = ""
+    
     var body: some View {
         
         VStack(spacing: 0) {
@@ -32,8 +35,35 @@ struct Home: View {
                     }
                 }
                 .foregroundColor(.primary)
-                .padding()
+                
+                
+                ScrollViewReader {proxy in
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 30) {
+                            
+                            ForEach(tabsItems) {tab in
+                                VStack {
+                                    Text(tab.tab)
+                                        .font(.callout)
+                                        .foregroundColor(currentTab == tab.id ? .black : .gray)
+                                    
+                                    Capsule()
+                                        .fill()
+                                        .frame(height: 3)
+                                        .padding(.horizontal, -10)
+                                        
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(.top)
             }
+            .padding([.horizontal, .top])
+        }
+        .onAppear {
+            currentTab = tabsItems.first?.id ?? ""
         }
     }
 }
