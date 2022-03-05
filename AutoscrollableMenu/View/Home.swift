@@ -25,7 +25,7 @@ struct Home: View {
                         Image(systemName: "arrow.left")
                             .font(.title2)
                     }
-                    Text("McDonalds's - Chinatown")
+                    Text("FoodClub - Ессентуки")
                         .font(.title3)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -89,7 +89,18 @@ struct Home: View {
             }
             .padding([.top])
             ScrollView(.vertical, showsIndicators: false) {
-                
+                ScrollViewReader{proxy in
+                    VStack(spacing: 15){
+                        ForEach(tabsItems){tab in
+                            MenuCardView(tab: tab)
+                                .padding(.top)
+                        }
+                    }
+                    .padding([.horizontal, .bottom])
+                    .onChange(of: currentTab) { newValue in
+                        
+                    }
+                }
             }
             
         }
@@ -102,5 +113,39 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home()
+    }
+}
+
+struct MenuCardView: View {
+    var tab: Tab
+    var body: some View {
+        VStack(alignment: .leading, spacing: 15){
+            Text(tab.tab)
+                .font(.title.bold())
+                .padding(.vertical)
+            
+            ForEach(tab.foods) {food in
+                HStack(spacing: 15) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(food.title)
+                            .font(.title3.bold())
+                        Text(food.description)
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        Text("Цена: \(food.price)")
+                            .fontWeight(.bold)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Image(food.image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 75, height: 75)
+                        .cornerRadius(10)
+                }
+                Divider()
+            }
+        }
+        .id(tab.id)
     }
 }
